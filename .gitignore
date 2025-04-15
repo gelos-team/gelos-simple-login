@@ -1,0 +1,14 @@
+.venv/
+venv/
+.env/
+env/
+**/.venv/
+**/venv/
+**/.env/
+**/env/
+dist/
+build/
+**/dist/
+**/build/
+design/
+**/design/
