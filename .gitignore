@@ -1,11 +1,5 @@
-.venv/
-venv/
-.env/
-env/
-**/.venv/
-**/venv/
-**/.env/
-**/env/
+*env/
+*venv/
 dist/
 build/
 **/dist/
@@ -16,3 +10,4 @@ __pycache__/
 *tmp/
 *temp
 *temp/
+*bkp
