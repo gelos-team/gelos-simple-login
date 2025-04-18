@@ -9,17 +9,20 @@
 
 from pathlib import *
 import os
+import sys
 
+
+# Print an error message.
+def print_error(msg: object) -> None:
+    sys.stderr.write("ERROR: " + str(msg) + "\n")
 
 class DatabaseReadError(Exception):
     def __init__(self, *args) -> None:
         super().__init__(*args)
 
-
-class Account:
-    def __init__(self, username: str, password: str) -> None:
-        self.username = username
-        self.password = password
+class DatabaseWriteError(Exception):
+    def __init__(self, *args) -> None:
+        super().__init__(*args)
 
 
 class DatabaseManager:
@@ -31,46 +34,27 @@ class DatabaseManager:
         self.break_upon_error = break_upon_error
 
     
-    # Read from the database
-    def __read__(self, path: Path, break_upon_error: bool = False) -> list[Account]:
+    # Read the contents from the database.
+    def __read__(self, path: Path, break_upon_error: bool = False) -> str:
+        # Check if the database file exists inside the storage device.
+        if not path.exists:
+            raise FileNotFoundError("The database at " + str(path.resolve()) + " could not be found.") if break_upon_error else print_error("The database could not be found.")
+
+            return ""
+
+
         try:
-            # Stop if the database doesn't exist.
-            if not path.exists(follow_symlinks=False):
-                # Print an error message saying that the database doesn't exist.
-                raise FileNotFoundError(f"The database could not be found at {path.resolve(True)}. Please check your spelling and try again.")
-            
-                return []
-            
-
-            # Try and read from the database.
-            database_text: str = ""
-
-
-            with path.open() as database_file:
-                # Get the contents of the database, including the credentials of the accounts.
-                database_text = database_file.read().strip()
-
-
-            # Do nothing if the database is empty
-            if len(database_text) <= 0:
-                return []
-            
-
-            # Get the usernames and passwords from every account
-            account_list: list[Account] = []
-
-
-            for account in database_text.split("\n"):
-                account_list.append(Account(account.strip().split(",")[0], account.strip().split(",")[1]))
-
-            
-            return account_list
+            # Try and read from the database
+            with path.open() as database:
+                return database.read()
         except Exception as err:
+            # Print an error message unless said otherwise.
             if break_upon_error:
-                raise DatabaseReadError(f"{type(err).__name__} - {err}")
-            
-            return []
-    
+                raise DatabaseReadError(str(type(err).__name__) + " - " + str(err))
 
-    def read(self) -> list[Account]:
+
+            return ""
+
+
+    def read(self) -> str:
         return self.__read__(self.path, self.break_upon_error)
