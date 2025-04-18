@@ -33,7 +33,7 @@ class DatabaseManager:
         # Stop if an error occurred unless told otherwise
         self.break_upon_error = break_upon_error
 
-    
+
     # Read the contents from the database.
     def __read__(self, path: Path, break_upon_error: bool = False) -> str:
         # Check if the database file exists inside the storage device.
@@ -54,6 +54,24 @@ class DatabaseManager:
 
 
             return ""
+
+
+    # Write contents to the database
+    def __write__(self, path: Path, contents: str, break_upon_error: bool = False) -> None:
+        # Create the database file if it doesn't exist.
+        if not path.exists:
+            # But create the parent folders of the file first.
+            for folder in path.resolve().parents:
+                # Skip if the folder already exists.
+                if folder.exists:
+                    continue
+
+                os.mkdir(folder)
+
+
+            # Now create and write the contents to the new database file and exit.
+            with path.open("w") as database:
+                database.write(contents)
 
 
     def read(self) -> str:
