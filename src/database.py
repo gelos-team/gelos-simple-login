@@ -58,21 +58,47 @@ class DatabaseManager:
 
     # Write contents to the database
     def __write__(self, path: Path, contents: str, break_upon_error: bool = False) -> None:
-        # Create the database file if it doesn't exist.
-        if not path.exists:
-            # But create the parent folders of the file first.
-            for folder in path.resolve().parents:
-                # Skip if the folder already exists.
-                if folder.exists:
-                    continue
+        try:
+            # Create the file if it doesn't exist.
+            if not path.exists():
+                # But first, create the folders containing the file.
+                for folder in path.resolve().parents:
+                    # Skip if the folder already exists.
+                    if folder.exists():
+                        continue
 
-                os.mkdir(folder)
+                    # Otherwise, create the folder
+                    os.mkdir(folder)
 
 
-            # Now create and write the contents to the new database file and exit.
+                # Now create and write the contents to the new
+                # database file.
+                with path.open("w") as database:
+                    database.write(contents)
+
+                return
+
+
+            # Stop if there are no differences
+            old_db_contents: str = self.__read__(path, break_upon_error)
+
+            if contents == old_db_contents:
+                return
+
+
+            # Otherwise, write the new contents to the database.
             with path.open("w") as database:
                 database.write(contents)
 
+        except Exception as err:
+            if break_upon_error:
+                raise DatabaseWriteError(str(type(err).__name__) + " - " + str(err))
+
+            return
 
     def read(self) -> str:
         return self.__read__(self.path, self.break_upon_error)
+
+
+    def write(self, contents: str) -> None:
+        self.__write__(self.path, contents, self.break_upon_error)
