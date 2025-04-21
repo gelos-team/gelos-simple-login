@@ -3,7 +3,6 @@
 *dist/
 *built/
 *__pycache__/
-*design/
 *tmp
 *tmp/
 *temp
