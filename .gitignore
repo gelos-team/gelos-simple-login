@@ -6,6 +6,10 @@ build/
 **/build/
 __pycache__/
 **/__pycache__/
+*design/
+**/design/
+*.drawio
+**/*.drawio
 *tmp
 *tmp/
 *temp
