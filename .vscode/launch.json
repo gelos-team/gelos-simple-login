@@ -9,7 +9,7 @@
             "name": "Python Debugger: Main Program",
             "type": "debugpy",
             "request": "launch",
-            "program": "src/main.py",
+            "program": "${cwd}/src/main.py",
             "console": "integratedTerminal"
         }
     ]
