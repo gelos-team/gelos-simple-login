@@ -17,6 +17,7 @@ class AccountManager:
     def __init__(self, db_manager: DatabaseManager) -> None:
         # The main database manager
         self.db_manager: DatabaseManager = db_manager
+        self.current_account: str = ""
 
     # Handle the account registration process.
     def register_account(self) -> None:
@@ -150,12 +151,101 @@ class AccountManager:
                 break          
 
 
+    # Handle the log in process.
+    def login(self) -> None:   
+        running: bool = True
+
+
+        while running:
+            try:
+                # Exit if the database doesn't exist
+                if not self.db_manager.path.exists:
+                    sys.stderr.write("ERROR: The database doesn't exist at the moment.\n")
+                    return
+                
+
+                # Read from the database
+                database_contents: str = self.db_manager.read().strip()
+
+
+                # Exit if the database is empty.
+                if len(database_contents) <= 0:
+                    sys.stderr.write("ERROR: The database is currently empty.\n")
+                    return
+                
+
+
+                # Prompt the user to enter a username
+                username: str = input("Enter a username: ").strip()
+
+
+                # Check if the username is correct
+                username_matches: bool = False
+
+                for account in database_contents.split("\n"):
+                    # Get the username from the account
+                    account_username: str = account.split(",")[0]
+
+
+                    # Continue if the username matches
+                    if username == account_username:
+                        username_matches = True
+                        break
+
+
+                
+                # Restart if there isn't a match.
+                if not username_matches:
+                    sys.stderr.write("ERROR: The username " + username + " doesn\'t exist. Please try again.\n")
+                    continue
+
+
+                # Prompt the user to enter a password for the account.
+                password: str = getpass("Enter a password for " + username + ": ")
+
+
+                is_password_correct: bool = False
+
+                for account in database_contents.split("\n"):
+                    # Get the username from the account
+                    account_username: str = account.split(",")[0]
+                    account_password: str = account.split(",")[1]
+
+
+                    # Continue if the username matches
+                    if username == account_username and password == account_password:
+                        is_password_correct = True
+                        break
+                
+
+                # Restart if the password is incorrect
+                if not is_password_correct:
+                    sys.stderr.write("Password is incorrect. Please try again.\n")
+                    continue
+
+
+                # Log in using the account details and exit.
+                self.current_account = username
+                print("Account logged in successfully.")
+
+                running = False
+                break
+                
+
+            except KeyboardInterrupt:
+                print("\nLog in cancelled")
+                running = False
+                break  
+
+
+
+                
 
 
 
 
 
 
-                    
+                        
 
-            
+                
