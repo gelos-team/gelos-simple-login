@@ -238,6 +238,26 @@ class AccountManager:
                 break  
 
 
+    # View list of accounts without their passwords.
+    def view_list(self) -> None:
+        # Stop if either the database doesn't exist or is empty.
+        if not self.db_manager.exists or len(self.db_manager.read()):
+            print("There is nothing there.")
+            return
+        
+
+        # Check if the user is logged in.
+        is_logged_in: bool = False
+
+        for account in self.db_manager.read().split("\n"):
+            # Get the username and check if there is a match.
+            if self.current_account == account.split(",")[0].strip():
+                is_logged_in = True
+                break
+
+        if not is_logged_in:
+            sys.stderr.write("ERROR: You must log yourself in before viewing the list of users.")
+            return
 
                 
 
