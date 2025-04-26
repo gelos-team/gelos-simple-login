@@ -29,6 +29,17 @@ class AccountManager:
         self.db_manager: DatabaseManager = db_manager
         self.break_upon_error: bool = break_upon_error
         self.current_account: str = ""
+
+
+    # Check if the user is logged in.
+    def is_logged_in(self) -> bool:
+        # Check if the user is logged in.
+        for account in self.db_manager.read().split("\n"):
+            # Get the username and check if there is a match.
+            if self.current_account == account.split(",")[0].strip():
+                return True
+            
+        return False
     
     # Check if the password meets the requirements
     def password_meets_requirements(self, password: str) -> None:
@@ -262,18 +273,8 @@ class AccountManager:
             if self.db_manager.is_database_empty_or_nonexistent():
                 print("There is nothing there.")
                 return
-            
 
-            # Check if the user is logged in.
-            is_logged_in: bool = False
-
-            for account in self.db_manager.read().split("\n"):
-                # Get the username and check if there is a match.
-                if self.current_account == account.split(",")[0].strip():
-                    is_logged_in = True
-                    break
-
-            if not is_logged_in:
+            if not self.is_logged_in():
                 raise InvalidCredentialsError("You must log yourself in before viewing the list of users.")
 
             
