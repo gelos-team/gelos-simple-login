@@ -29,6 +29,34 @@ class AccountManager:
         self.db_manager: DatabaseManager = db_manager
         self.break_upon_error: bool = break_upon_error
         self.current_account: str = ""
+    
+    # Check if the password meets the requirements
+    def password_meets_requirements(self, password: str) -> None:
+        # Check if the password requirements are met
+        has_lowercase_letters: bool = False
+        has_uppercase_letters: bool = False
+        has_numbers: bool = False
+        has_symbols: bool = False
+
+
+        for letter in password:
+            # Check if the password has lower and uppercase letters.
+            if letter in string.ascii_lowercase:
+                has_lowercase_letters = True
+            elif letter in string.ascii_uppercase:
+                has_uppercase_letters = True
+            elif letter in string.digits:
+                has_numbers = True
+            elif letter in string.punctuation:
+                has_symbols = True
+
+        
+        return (has_lowercase_letters and \
+                has_uppercase_letters and \
+                has_numbers and \
+                has_symbols) and \
+                len(password) >= 8
+    
     # Handle the account registration process.
     def register_account(self) -> None:
         running: bool = True
@@ -88,23 +116,10 @@ class AccountManager:
                 has_numbers: bool = False
                 has_symbols: bool = False
 
-
-                for letter in password:
-                    # Check if the password has lower and uppercase letters.
-                    if letter in string.ascii_lowercase:
-                        has_lowercase_letters = True
-                    elif letter in string.ascii_uppercase:
-                        has_uppercase_letters = True
-                    elif letter in string.digits:
-                        has_numbers = True
-                    elif letter in string.punctuation:
-                        has_symbols = True  
-
                 
                 # Restart if the password requirements
                 # haven't been met.
-                if not (has_lowercase_letters and has_uppercase_letters and \
-                        has_numbers and has_symbols) or len(password) < 8:
+                if not self.password_meets_requirements(password):
                     raise InvalidCredentialsError("Password must have atleast 8 characters, lowercase letters, uppercase letters, numbers and symbols.")
 
                 
