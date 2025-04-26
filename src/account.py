@@ -28,6 +28,7 @@ class AccountManager:
         # The main database manager
         self.db_manager: DatabaseManager = db_manager
         self.break_upon_error: bool = break_upon_error
+
         self.current_account: str = ""
 
 
@@ -38,9 +39,11 @@ class AccountManager:
             # Get the username and check if there is a match.
             if self.current_account == account.split(",")[0].strip():
                 return True
-            
+        
+
         return False
-    
+
+
     # Check if the password meets the requirements
     def password_meets_requirements(self, password: str) -> None:
         # Check if the password requirements are met
@@ -54,10 +57,13 @@ class AccountManager:
             # Check if the password has lower and uppercase letters.
             if letter in string.ascii_lowercase:
                 has_lowercase_letters = True
+
             elif letter in string.ascii_uppercase:
                 has_uppercase_letters = True
+
             elif letter in string.digits:
                 has_numbers = True
+
             elif letter in string.punctuation:
                 has_symbols = True
 
@@ -67,7 +73,8 @@ class AccountManager:
                 has_numbers and \
                 has_symbols) and \
                 len(password) >= 8
-    
+
+
     # Handle the account registration process.
     def register_account(self) -> None:
         running: bool = True
@@ -119,7 +126,8 @@ class AccountManager:
                 # Now ask the user to enter a password for 
                 # the account.
                 password: str = getpass("Enter a password for " + username + ": ").strip()
-                
+
+
                 # Restart if the password requirements
                 # haven't been met.
                 if not self.password_meets_requirements(password):
@@ -135,18 +143,23 @@ class AccountManager:
                     
 
                 self.db_manager.write(self.db_manager.read() + f"\n{username},{password}")
-                
+
+
                 print("The account has been created successfully. You can login now.")
+
                 break
+
 
             except InvalidCredentialsError as err:
                 print_error(str(err))
                 continue
 
+
             except KeyboardInterrupt:
                 print("\nAccount creation cancelled")
                 running = False
                 break
+
 
             except Exception as err:
                 if self.break_upon_error: # Print an error message if specified.
@@ -180,13 +193,13 @@ class AccountManager:
                     return
                 
 
-
                 # Prompt the user to enter a username
                 username: str = input("Enter a username: ").strip()
 
 
                 # Check if the username is correct
                 username_matches: bool = False
+
 
                 for account in database_contents.split("\n"):
                     # Get the username from the account
@@ -199,7 +212,6 @@ class AccountManager:
                         break
 
 
-                
                 # Restart if there isn't a match.
                 if not username_matches:
                     raise InvalidCredentialsError(f"The username {username} doesn\'t exist. Please try again.")
@@ -210,6 +222,7 @@ class AccountManager:
 
 
                 is_password_correct: bool = False
+
 
                 for account in database_contents.split("\n"):
                     # Get the username from the account
@@ -231,8 +244,6 @@ class AccountManager:
                 # Log in using the account details and exit.
                 self.current_account = username
                 print("Account logged in successfully.")
-
-                running = False
                 break
                 
             except InvalidCredentialsError as err:
@@ -251,7 +262,8 @@ class AccountManager:
                 # Otherwise, stop the login process
                 print_error("Something went wrong: " + str(err))
                 return
-                
+
+
     # View list of accounts without their passwords.
     def view_list(self) -> None:
         try:
@@ -260,13 +272,14 @@ class AccountManager:
                 print("There is nothing there.")
                 return
 
+
+            # Stop if the user isn't logged in.
             if not self.is_logged_in():
                 raise InvalidCredentialsError("You must log yourself in before viewing the list of users.")
 
             
             # Display a list of users without their passwords.
             list_of_users: str = ""
-
             index: int = 1 # The list index
 
 

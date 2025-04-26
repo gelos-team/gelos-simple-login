@@ -96,12 +96,14 @@ class DatabaseManager:
 
             return
 
+
     def read(self) -> str:
         return self.__read__(self.path, self.break_upon_error)
 
 
     def write(self, contents: str) -> None:
         self.__write__(self.path, contents, self.break_upon_error)
+
 
     # Check if the database is empty or non-existant
     def is_database_empty_or_nonexistent(self) -> bool:
