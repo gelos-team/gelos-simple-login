@@ -94,28 +94,17 @@ class AccountManager:
                 has_numbers: bool = False
                 has_symbols: bool = False
 
-                for letter in string.ascii_lowercase:
-                    if letter in password:
+
+                for letter in password:
+                    # Check if the password has lower and uppercase letters.
+                    if letter in string.ascii_lowercase:
                         has_lowercase_letters = True
-                        break
-
-                
-                for letter in string.ascii_uppercase:
-                    if letter in password:
+                    elif letter in string.ascii_uppercase:
                         has_uppercase_letters = True
-                        break
-                
-
-                for number in string.digits:
-                    if number in password:
+                    elif letter in string.digits:
                         has_numbers = True
-                        break
-                
-
-                for symbol in string.punctuation:
-                    if symbol in password:
-                        has_symbols = True
-                        break
+                    elif letter in string.punctuation:
+                        has_symbols = True  
 
                 
                 # Restart if the password requirements
