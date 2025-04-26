@@ -108,14 +108,6 @@ class AccountManager:
                 # Now ask the user to enter a password for 
                 # the account.
                 password: str = getpass("Enter a password for " + username + ": ").strip()
-
-                
-                # Check if the password requirements are met
-                has_lowercase_letters: bool = False
-                has_uppercase_letters: bool = False
-                has_numbers: bool = False
-                has_symbols: bool = False
-
                 
                 # Restart if the password requirements
                 # haven't been met.
@@ -267,7 +259,7 @@ class AccountManager:
     def view_list(self) -> None:
         try:
             # Stop if either the database doesn't exist or is empty.
-            if self.db_manager.is_database_empty_or_nonexistent:
+            if self.db_manager.is_database_empty_or_nonexistent():
                 print("There is nothing there.")
                 return
             
