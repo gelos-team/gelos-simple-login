@@ -46,7 +46,7 @@ class DatabaseManager:
         try:
             # Try and read from the database
             with path.open() as database:
-                return database.read()
+                return database.read().strip()
         except Exception as err:
             # Print an error message unless said otherwise.
             if break_upon_error:

@@ -167,7 +167,7 @@ class AccountManager:
                 
 
                 # Read from the database
-                database_contents: str = self.db_manager.read().strip()
+                database_contents: str = self.db_manager.read()
 
 
                 # Exit if the database is empty.
@@ -276,7 +276,7 @@ class AccountManager:
             index: int = 1 # The list index
 
 
-            for account in self.db_manager.read().strip().split("\n"):
+            for account in self.db_manager.read().split("\n"):
                 try:
                     # Get the username from the account
                     username: str = account.split(",")[0].strip()
