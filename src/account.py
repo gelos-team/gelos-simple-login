@@ -36,18 +36,12 @@ class AccountManager:
 
         while running:
             try:
-                # Check if the database exists.
-                database_exists: bool = self.db_manager.path.exists()
-
-                # Also check if the database is empty.
-                database_empty: bool = len(self.db_manager.read()) <= 0
-
                 # Container for the list of accounts
                 account_list: list[dict] = []
 
 
                 # Read from the database if it exists and isn't empty
-                if database_exists and not database_empty:
+                if not self.db_manager.is_database_empty_or_nonexistent():
                     for account in self.db_manager.read().split("\n"):
                         # Get the usernames and password from every account
                         try:
@@ -71,7 +65,7 @@ class AccountManager:
 
                 # Check if the username is available.
                 # Restart if the username isn't.
-                if database_exists and not database_empty:
+                if not self.db_manager.is_database_empty_or_nonexistent():
                     username_available: bool = True
 
                     for account in account_list:
