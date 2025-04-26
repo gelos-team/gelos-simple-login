@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.2.2 Chrome/134.0.6998.178 Electron/35.1.2 Safari/537.36" version="26.2.2" pages="3">
   <diagram name="Account Registration" id="iLE3Jwbvo_P_98CqRcma">
-    <mxGraphModel dx="1926" dy="515" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1926" dy="523" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -137,8 +137,10 @@
         <mxCell id="nShzTtYWi6adCArLgVIG-34" value="Prompt the user&lt;div&gt;to verify that&lt;/div&gt;&lt;div&gt;the password&lt;/div&gt;&lt;div&gt;is correct.&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" parent="1" vertex="1">
           <mxGeometry x="370" y="1680" width="100" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="nShzTtYWi6adCArLgVIG-40" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="nShzTtYWi6adCArLgVIG-37" target="nShzTtYWi6adCArLgVIG-39" edge="1">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="nShzTtYWi6adCArLgVIG-40" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="nShzTtYWi6adCArLgVIG-37" target="nShzTtYWi6adCArLgVIG-45" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="2000" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
         <mxCell id="nShzTtYWi6adCArLgVIG-41" value="Yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="nShzTtYWi6adCArLgVIG-40" vertex="1" connectable="0">
           <mxGeometry x="-0.1333" relative="1" as="geometry">
@@ -165,42 +167,17 @@
         <mxCell id="nShzTtYWi6adCArLgVIG-38" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="nShzTtYWi6adCArLgVIG-34" target="nShzTtYWi6adCArLgVIG-37" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="nShzTtYWi6adCArLgVIG-44" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="nShzTtYWi6adCArLgVIG-39" target="nShzTtYWi6adCArLgVIG-42" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="nShzTtYWi6adCArLgVIG-39" value="Confirm if the&lt;div&gt;user wishes&lt;/div&gt;&lt;div&gt;to create&lt;/div&gt;&lt;div&gt;the account.&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" parent="1" vertex="1">
-          <mxGeometry x="370" y="2000" width="100" height="80" as="geometry" />
-        </mxCell>
-        <mxCell id="nShzTtYWi6adCArLgVIG-46" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="nShzTtYWi6adCArLgVIG-42" target="nShzTtYWi6adCArLgVIG-45" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="nShzTtYWi6adCArLgVIG-74" value="Yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="nShzTtYWi6adCArLgVIG-46" vertex="1" connectable="0">
-          <mxGeometry x="-0.2111" y="1" relative="1" as="geometry">
-            <mxPoint as="offset" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="nShzTtYWi6adCArLgVIG-76" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="nShzTtYWi6adCArLgVIG-42" target="nShzTtYWi6adCArLgVIG-75" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="nShzTtYWi6adCArLgVIG-77" value="No" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="nShzTtYWi6adCArLgVIG-76" vertex="1" connectable="0">
-          <mxGeometry x="0.0725" relative="1" as="geometry">
-            <mxPoint as="offset" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="nShzTtYWi6adCArLgVIG-42" value="User wishes&lt;div&gt;to create&lt;/div&gt;&lt;div&gt;account?&lt;/div&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;" parent="1" vertex="1">
-          <mxGeometry x="365" y="2160" width="110" height="100" as="geometry" />
-        </mxCell>
         <mxCell id="nShzTtYWi6adCArLgVIG-48" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="nShzTtYWi6adCArLgVIG-45" target="nShzTtYWi6adCArLgVIG-47" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="nShzTtYWi6adCArLgVIG-45" value="Create account&lt;div&gt;and add it to&lt;/div&gt;&lt;div&gt;the database.&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" parent="1" vertex="1">
-          <mxGeometry x="370" y="2320" width="100" height="80" as="geometry" />
+          <mxGeometry x="370" y="2040" width="100" height="80" as="geometry" />
         </mxCell>
         <mxCell id="nShzTtYWi6adCArLgVIG-47" value="Say &quot;The account has been created successfully.&quot; and exit." style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" parent="1" vertex="1">
-          <mxGeometry x="370" y="2480" width="100" height="80" as="geometry" />
+          <mxGeometry x="370" y="2200" width="100" height="80" as="geometry" />
         </mxCell>
         <mxCell id="nShzTtYWi6adCArLgVIG-49" value="Exit" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;" parent="1" vertex="1">
-          <mxGeometry x="370" y="2630" width="100" height="60" as="geometry" />
+          <mxGeometry x="370" y="2350" width="100" height="60" as="geometry" />
         </mxCell>
         <mxCell id="nShzTtYWi6adCArLgVIG-58" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="nShzTtYWi6adCArLgVIG-56" target="nShzTtYWi6adCArLgVIG-13" edge="1">
           <mxGeometry relative="1" as="geometry">
@@ -228,14 +205,6 @@
         </mxCell>
         <mxCell id="nShzTtYWi6adCArLgVIG-73" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="nShzTtYWi6adCArLgVIG-47" target="nShzTtYWi6adCArLgVIG-49" edge="1">
           <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="nShzTtYWi6adCArLgVIG-78" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="nShzTtYWi6adCArLgVIG-75" target="nShzTtYWi6adCArLgVIG-49" edge="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="480" y="2701.2903225806454" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="nShzTtYWi6adCArLgVIG-75" value="Say &quot;Account creation cancelled.&quot;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" parent="1" vertex="1">
-          <mxGeometry x="560" y="2170" width="100" height="80" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

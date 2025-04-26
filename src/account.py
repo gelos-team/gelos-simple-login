@@ -134,24 +134,10 @@ class AccountManager:
                     raise InvalidCredentialsError("Passwords do not match. Please try again.")
                     
 
-
-                # Ask if the user wishes to create their account
-                while True:
-                    user_input: str = input("You want to create an account under the name " + username + \
-                                                 ".\nDo you wish to continue [y/N]: ")
-                    
-                    if len(user_input) <= 0 or user_input.strip().lower() == "n":
-                        print("Account creation cancelled")
-                        running = False
-                        return
-                    elif user_input.strip().lower() == "y":
-                        self.db_manager.write(self.db_manager.read() + f"\n{username},{password}")
-                        
-                        print("The account has been created successfully. You can login now.")
-                        running = False
-                        return
-                    else:
-                        sys.stderr.write("ERROR: Please choose a valid option.")
+                self.db_manager.write(self.db_manager.read() + f"\n{username},{password}")
+                
+                print("The account has been created successfully. You can login now.")
+                break
 
             except InvalidCredentialsError as err:
                 print_error(str(err))
