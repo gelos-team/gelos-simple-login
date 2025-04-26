@@ -267,7 +267,7 @@ class AccountManager:
     def view_list(self) -> None:
         try:
             # Stop if either the database doesn't exist or is empty.
-            if not self.db_manager.path.exists or len(self.db_manager.read()) <= 0:
+            if self.db_manager.is_database_empty_or_nonexistent:
                 print("There is nothing there.")
                 return
             
