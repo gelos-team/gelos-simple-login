@@ -1,8 +1,7 @@
 # File name: main.py
-# Date: 15/04/2025
-# Written by: Mitch Coghlan
+# Written by: Mitch Coghlan on 15/04/2025
 
 
 """
-    Purpose: <insert purpose here>
+    Description: <insert purpose here>
 """

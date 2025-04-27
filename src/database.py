@@ -1,10 +1,9 @@
 # File name: database.py
-# Date: 15/04/2025
-# Written by: Mitch Coghlan
+# Written by: Mitch Coghlan on 15/04/2025
 
 
 """
-    Purpose: Responsible for reading and writing to and from the database
+    Description: Responsible for reading and writing to and from the database
 """
 
 from pathlib import *
