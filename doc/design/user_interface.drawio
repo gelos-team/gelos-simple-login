@@ -59,7 +59,7 @@
         <mxCell id="FzfTqK7u0cTNlNV69uje-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="FzfTqK7u0cTNlNV69uje-11" target="FzfTqK7u0cTNlNV69uje-13">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="FzfTqK7u0cTNlNV69uje-15" value="Check if a certain&lt;div&gt;condition is met.&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" vertex="1" parent="1">
+        <mxCell id="FzfTqK7u0cTNlNV69uje-15" value="Check if an option is visible." style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" vertex="1" parent="1">
           <mxGeometry x="370" y="1000" width="100" height="80" as="geometry" />
         </mxCell>
         <mxCell id="FzfTqK7u0cTNlNV69uje-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="FzfTqK7u0cTNlNV69uje-17" target="FzfTqK7u0cTNlNV69uje-19">
@@ -78,7 +78,7 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="FzfTqK7u0cTNlNV69uje-17" value="Has condition&lt;div&gt;been met?&lt;/div&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;" vertex="1" parent="1">
+        <mxCell id="FzfTqK7u0cTNlNV69uje-17" value="Is visible?" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;" vertex="1" parent="1">
           <mxGeometry x="370" y="1160" width="100" height="100" as="geometry" />
         </mxCell>
         <mxCell id="FzfTqK7u0cTNlNV69uje-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="FzfTqK7u0cTNlNV69uje-15" target="FzfTqK7u0cTNlNV69uje-17">
