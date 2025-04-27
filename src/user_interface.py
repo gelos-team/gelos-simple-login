@@ -10,6 +10,7 @@ from pathlib import *
 from database import *
 from account import *
 import string
+import time
 import sys
 
 
@@ -17,7 +18,7 @@ class MenuOption:
     def __init__(self, label: str, alias: str | list[str], command: callable, visible: bool = True) -> None:
         # Settings
         self.label: str = label
-        self.alias: str | list = alias
+        self.alias: str | list[str] = alias
         self.command: callable = command
         self.visible: bool = visible
 
@@ -59,8 +60,8 @@ class MenuOption:
                         raise TypeError("The alias must be of type 'str'")
                     
                 
-                    is_singular_character: bool = self.__is_single_character__(alias)
-                    isnt_symbol: bool = self.__is_letter_or_number__(alias)
+                    is_singular_character: bool = self.__is_single_character__(letter)
+                    isnt_symbol: bool = self.__is_letter_or_number__(letter)
 
 
                     # Print an error message if it isn't a singular
@@ -80,3 +81,98 @@ class MenuOption:
             self.command()
         except Exception as err:
             raise type(err)(str(err))
+
+
+# The main user interface
+class UserInterface:
+    def __init__(self, database_path: Path | str, break_upon_error: bool = False) -> None:
+        # For logging in, account registration, checking if the user is logged in and viewing the list of accounts.
+        self.account_manager: AccountManager = AccountManager(DatabaseManager(database_path, break_upon_error), break_upon_error)
+
+        # The list of menu options
+        self.menu_options: list[MenuOption] = []
+
+        # Check if the user is logged in.
+        self.is_user_logged_in = False
+
+
+    # Add a menu option.
+    def add_menu_option(self, label: str, alias: str | list[str], command: callable, visible: bool = True) -> None:
+        self.menu_options.append(MenuOption(label, alias, command, visible))
+
+    
+    # Display the list of options
+    def display_options(self) -> None:
+        output: str = ""
+
+
+        for option in self.menu_options:
+            # Skip any invisible options
+            if not option.visible:
+                continue
+
+            # List any aliases that the option uses.
+            __alias__: str = ""
+
+
+            if type(option.alias).__name__ == "list":
+                for alias in option.alias:
+                    if option.alias.index(alias) < len(option.alias) - 1:
+                        __alias__ += alias + ", "
+                        continue
+
+                    __alias__ += alias
+            elif type(option.alias).__name__ == "str":
+                __alias__ = option.alias
+            else:
+                continue
+
+
+            # Now output the list of options
+            output += f"[{__alias__}]: {option.label}\n"
+
+
+        
+        print(output)
+
+                    
+    # Add a predefined list of options for the menu
+    def __add_predefined_options__(self) -> None:
+        self.add_menu_option("Log in", "1", self.account_manager.login)
+        self.add_menu_option("Sign up", "2", self.account_manager.register_account)
+        self.add_menu_option("View list of users", "3", self.account_manager.view_list)
+        self.add_menu_option("Quit", "Q", exit)
+
+    
+    def run(self) -> None:
+        # Create the predefined list of options
+        self.__add_predefined_options__()
+
+        while True:
+            # Check if the user is logged in.
+            self.is_user_logged_in = self.account_manager.is_logged_in()
+
+            # Display the list of options
+            self.display_options()
+
+            # Prompt the user to choose an option.
+            user_input: str = input("Choose an option from the list: ")
+
+
+            # Do something when an option is selected.
+            for option in self.menu_options:
+                match type(option.alias).__name__:
+                    case "str":
+                        if user_input.strip() != option.alias:
+                            continue
+
+                        option.run()
+                    
+                    case "list":
+                        for alias in option.alias:
+                            if user_input.strip() != alias:
+                                continue
+
+                            option.run()
+                    
+
