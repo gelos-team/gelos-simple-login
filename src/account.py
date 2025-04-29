@@ -144,7 +144,7 @@ class AccountManager:
                 self.db_manager.write(self.db_manager.read() + f"\n{username},{password}")
 
 
-                print("The account has been created successfully. You can login now.")
+                input("The account has been created successfully. Press any key to continue.")
 
                 break
 
@@ -242,7 +242,8 @@ class AccountManager:
 
                 # Log in using the account details and exit.
                 self.current_account = username
-                print("Account logged in successfully.")
+                input("Account logged in successfully. Press enter to continue")
+
                 break
                 
             except InvalidCredentialsError as err:

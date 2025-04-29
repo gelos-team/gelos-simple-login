@@ -12,6 +12,7 @@ from account import *
 import string
 import time
 import sys
+import os
 
 
 class MenuOption:
@@ -82,6 +83,15 @@ class MenuOption:
             self.command()
         except Exception as err:
             raise type(err)(str(err))
+
+
+# Clear the console window
+def clear_console() -> None:
+    try:
+        os.system("cls" if sys.platform == "win32" else "clear")
+    except:
+        print("\033[2J\033[H")
+    
 
 
 # The main user interface
@@ -194,18 +204,23 @@ class UserInterface:
     
     def run(self) -> None:
         while True:
+            # Clear the console window before continuing
+            clear_console()
+
             # Create the predefined list of options
             self.__add_predefined_options__()
 
             # Check if the user is logged in.
             self.is_user_logged_in = self.account_manager.is_logged_in()
 
-            # Display the current username if logged in.
-            if self.is_user_logged_in:
-                print("Currently logged in under: " + self.account_manager.current_account)
-
             # Display the list of options
             self.display_options()
+
+            # Display the current username if logged in.
+            if self.is_user_logged_in:
+                print(f"Current user: {self.account_manager.current_account}")
+            else:
+                print("Currently signed out.")
 
             # Prompt the user to choose an option.
             user_input: str = input("Choose an option from the list: ")
@@ -218,6 +233,10 @@ class UserInterface:
                         if user_input.strip() != option.alias:
                             continue
 
+
+                        # Clear the console before continuing
+                        clear_console()
+
                         option.run()
                     
                     case "list":
@@ -225,6 +244,12 @@ class UserInterface:
                             if user_input.strip() != alias:
                                 continue
 
+                            # Clear the console before continuing
+                            clear_console()
+
                             option.run()
+
+            
+            clear_console()
                     
 
