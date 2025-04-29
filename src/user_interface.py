@@ -15,9 +15,10 @@ import sys
 
 
 class MenuOption:
-    def __init__(self, label: str, alias: str | list[str], command: callable, visible: bool = True) -> None:
+    def __init__(self, label: str, id: str, alias: str | list[str], command: callable, visible: bool = True) -> None:
         # Settings
         self.label: str = label
+        self.id: str = id
         self.alias: str | list[str] = alias
         self.command: callable = command
         self.visible: bool = visible
@@ -96,11 +97,46 @@ class UserInterface:
         self.is_user_logged_in = False
 
 
-    # Add a menu option.
-    def add_menu_option(self, label: str, alias: str | list[str], command: callable, visible: bool = True) -> None:
-        self.menu_options.append(MenuOption(label, alias, command, visible))
+    # Check if a menu option already exists.
+    def menu_option_exists(self, id: str) -> bool:
+        for menu_option in self.menu_options:
+            # Stop if an entry matches
+            if menu_option.id == id:
+                return True
+            
+        return False
 
-    
+
+    # Remove an option from the menu.
+    def remove_menu_option(self, id: str) -> None:
+        # Skip if the option already exists
+        if not self.menu_option_exists(id):
+            return
+
+        
+        for option in self.menu_options:
+            # Remove the menu option if there is a match
+            if option.id == id:
+                self.menu_options.remove(option)
+                
+
+    # Add a menu option.
+    def add_menu_option(self, label: str, id: str, alias: str | list[str], command: callable, index: int = 0, visible: bool = True) -> None:
+        # Skip if the option already exists
+        if self.menu_option_exists(id):
+            return
+
+        
+        self.menu_options.insert(index, MenuOption(label, id, alias, command, visible))
+
+        
+
+
+    # Clear every menu option from the list.
+    def clear_menu_options(self) -> None:
+        for option in self.menu_options:
+            self.remove_menu_option(option.id)
+
     # Display the list of options
     def display_options(self) -> None:
         output: str = ""
@@ -138,19 +174,35 @@ class UserInterface:
                     
     # Add a predefined list of options for the menu
     def __add_predefined_options__(self) -> None:
-        self.add_menu_option("Log in", "1", self.account_manager.login)
-        self.add_menu_option("Sign up", "2", self.account_manager.register_account)
-        self.add_menu_option("View list of users", "3", self.account_manager.view_list)
-        self.add_menu_option("Quit", "Q", exit)
+        # Clear everything before continuing
+        self.clear_menu_options()
+
+
+        self.add_menu_option("Log in", "login", "1", self.account_manager.login, 0)
+        self.add_menu_option("Sign up", "register", "2", self.account_manager.register_account, 1)
+        
+        if self.account_manager.is_logged_in():
+            self.add_menu_option("View list of users", "list_user_accounts", "3", self.account_manager.view_list, 2)
+        else:
+            pass
+
+
+        self.add_menu_option("Quit", "exit", "Q", exit, 3)
+
+        
 
     
     def run(self) -> None:
-        # Create the predefined list of options
-        self.__add_predefined_options__()
-
         while True:
+            # Create the predefined list of options
+            self.__add_predefined_options__()
+
             # Check if the user is logged in.
             self.is_user_logged_in = self.account_manager.is_logged_in()
+
+            # Display the current username if logged in.
+            if self.is_user_logged_in:
+                print("Currently logged in under: " + self.account_manager.current_account)
 
             # Display the list of options
             self.display_options()
