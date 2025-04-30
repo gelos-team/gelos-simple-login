@@ -155,6 +155,7 @@ class AccountManager:
                     
 
                 self.db_manager.write(self.db_manager.read() + f"\n{username},{password}")
+                self.db_manager.write(self.db_manager.read())
 
 
                 input("The account has been created successfully. Press any key to continue.")
@@ -175,8 +176,9 @@ class AccountManager:
 
             except Exception as err:
                 if self.break_upon_error: # Print an error message if specified.
-                    raise type(err)(str(err))
+                    raise
                 
+
                 # Otherwise, stop the login process
                 print_error("Something went wrong: " + str(err))
                 return
@@ -274,7 +276,7 @@ class AccountManager:
                 break
             except Exception as err:
                 if self.break_upon_error: # Print an error message if specified.
-                    raise type(err)(str(err))
+                    raise
                 
                 # Otherwise, stop the login process
                 print_error("Something went wrong: " + str(err))

@@ -8,6 +8,7 @@
 
 from user_interface import UserInterface
 from pathlib import Path
+import sys
 
 
 # The location pointing to the database.
@@ -27,9 +28,17 @@ class App:
             Run the program.    
         """
 
-        # Create the user interface
-        ui: UserInterface = UserInterface(self.path, self.break_upon_error)
-        ui.run()
+        try:
+            # Create the user interface
+            ui: UserInterface = UserInterface(self.path, self.break_upon_error)
+            ui.run()
+        except Exception as err:
+            if self.break_upon_error:
+                raise
+            else:
+                sys.stderr.write("Something went wrong and the program has to quit.")
+                sys.exit(-1)
+
 
 
 if __name__ == "__main__":
