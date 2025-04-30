@@ -36,6 +36,10 @@ class AccountManager:
         """
             Check if the user is logged in.
         """
+        # Do nothing if the database is empty or non-existant
+        if self.db_manager.is_database_empty_or_nonexistent():
+            return False
+
 
         # Check if the user is logged in.
         for account in self.db_manager.read().split("\n"):

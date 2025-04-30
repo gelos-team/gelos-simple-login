@@ -239,14 +239,11 @@ class UserInterface:
             # Create the predefined list of options
             self.__add_predefined_options__()
 
-            # Check if the user is logged in.
-            self.is_user_logged_in = self.account_manager.is_logged_in()
-
             # Display the list of options
             self.display_options()
 
             # Display the current username if logged in.
-            if self.is_user_logged_in:
+            if self.account_manager.is_logged_in():
                 print(f"Current user: {self.account_manager.current_account}")
             else:
                 print("Currently signed out.")
