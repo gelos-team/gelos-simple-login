@@ -96,7 +96,7 @@ def clear_console() -> None:
 
 # The main user interface
 class UserInterface:
-    def __init__(self, database_path: Path | str, break_upon_error: bool = False) -> None:
+    def __init__(self, database_path: Path, break_upon_error: bool = False) -> None:
         # For logging in, account registration, checking if the user is logged in and viewing the list of accounts.
         self.account_manager: AccountManager = AccountManager(DatabaseManager(database_path, break_upon_error), break_upon_error)
 

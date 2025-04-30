@@ -18,9 +18,9 @@ def print_error(msg: object) -> None:
 
 
 class DatabaseManager:
-    def __init__(self, database_path: Path | str, break_upon_error: bool = False) -> None:
+    def __init__(self, database_path: Path, break_upon_error: bool = False) -> None:
         # The location leading to the database
-        self.path: Path = Path(database_path) if type(database_path) == str else database_path
+        self.path: Path = database_path
 
         # Stop if an error occurred unless told otherwise
         self.break_upon_error = break_upon_error
