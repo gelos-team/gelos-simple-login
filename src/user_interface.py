@@ -94,7 +94,6 @@ def clear_console() -> None:
         print("\033[2J\033[H")
     
 
-
 # The main user interface
 class UserInterface:
     def __init__(self, database_path: Path | str, break_upon_error: bool = False) -> None:
@@ -194,7 +193,7 @@ class UserInterface:
         if self.account_manager.is_logged_in():
             self.add_menu_option("View list of users", "list_user_accounts", "3", self.account_manager.view_list, 2)
         else:
-            pass
+            self.remove_menu_option("list_user_accounts")
 
 
         self.add_menu_option("Quit", "exit", "Q", exit, 3)
