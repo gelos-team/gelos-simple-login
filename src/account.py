@@ -33,6 +33,10 @@ class AccountManager:
 
     # Check if the user is logged in.
     def is_logged_in(self) -> bool:
+        """
+            Check if the user is logged in.
+        """
+
         # Check if the user is logged in.
         for account in self.db_manager.read().split("\n"):
             # Get the username and check if there is a match.
@@ -45,6 +49,11 @@ class AccountManager:
 
     # Check if the password meets the requirements
     def password_meets_requirements(self, password: str) -> None:
+        """
+            Checks if the user's password meets the requirements
+            defined in the Microsoft Complexity Standards inside the Gelos Password Policy.
+        """
+
         # Check if the password requirements are met
         has_lowercase_letters: bool = False
         has_uppercase_letters: bool = False
@@ -76,6 +85,10 @@ class AccountManager:
 
     # Handle the account registration process.
     def register_account(self) -> None:
+        """
+            Creates an account and adds it to the database.
+        """
+
         running: bool = True
 
 
@@ -170,7 +183,11 @@ class AccountManager:
 
 
     # Handle the log in process.
-    def login(self) -> None:   
+    def login(self) -> None:
+        """
+            Deals with logging in using the user's account details.
+        """
+
         running: bool = True
 
 
@@ -266,6 +283,12 @@ class AccountManager:
 
     # View list of accounts without their passwords.
     def view_list(self) -> None:
+        """
+            Responsible for grabbing and displaying a list of users.
+
+            Only works when logged in.
+        """
+
         try:
             # Stop if either the database doesn't exist or is empty.
             if self.db_manager.is_database_empty_or_nonexistent():

@@ -17,11 +17,13 @@ def print_error(msg: object) -> None:
     sys.stderr.write("ERROR: " + str(msg) + "\n")
 
 
+# Error message that occurs when something goes wrong while reading from the database.
 class DatabaseReadError(Exception):
     def __init__(self, *args) -> None:
         super().__init__(*args)
 
 
+# Same thing but occurs when writing to the database.
 class DatabaseWriteError(Exception):
     def __init__(self, *args) -> None:
         super().__init__(*args)
@@ -40,6 +42,7 @@ class DatabaseManager:
     def __read__(self, path: Path, break_upon_error: bool = False) -> str:
         # Check if the database file exists inside the storage device.
         if not path.exists:
+            # Print an error message if database doesn't exist.
             raise FileNotFoundError("The database at " + str(path.resolve()) + " could not be found.") if break_upon_error else print_error("The database could not be found.")
 
             return ""
@@ -49,7 +52,7 @@ class DatabaseManager:
             # Try and read from the database
             with path.open() as database:
                 return database.read().strip()
-        except Exception as err:
+        except Exception as err: # Output nothing if something goes wrong while reading from the database.
             # Print an error message unless said otherwise.
             if break_upon_error:
                 raise DatabaseReadError(str(type(err).__name__) + " - " + str(err))
@@ -92,18 +95,18 @@ class DatabaseManager:
             with path.open("w") as database:
                 database.write(contents)
 
-        except Exception as err:
+        except Exception as err: # Do nothing if something went wrong writing to the database.
             if break_upon_error:
                 raise DatabaseWriteError(str(type(err).__name__) + " - " + str(err))
 
             return
 
 
-    def read(self) -> str:
+    def read(self) -> str: # Provide a more friendlier approach to reading from the database.
         return self.__read__(self.path, self.break_upon_error)
 
 
-    def write(self, contents: str) -> None:
+    def write(self, contents: str) -> None: # Do the same thing but for writing to the database.
         self.__write__(self.path, contents, self.break_upon_error)
 
 

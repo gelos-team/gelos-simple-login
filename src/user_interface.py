@@ -109,16 +109,25 @@ class UserInterface:
 
     # Check if a menu option already exists.
     def menu_option_exists(self, id: str) -> bool:
+        """
+            Checks if a menu option exists by looking for it's I.D.
+        """
+
         for menu_option in self.menu_options:
-            # Stop if an entry matches
+            # If a menu option exists then...
             if menu_option.id == id:
                 return True
-            
+        
+
         return False
 
 
     # Remove an option from the menu.
     def remove_menu_option(self, id: str) -> None:
+        """
+            Removes a menu option based on the I.D.
+        """
+
         # Skip if the option already exists
         if not self.menu_option_exists(id):
             return
@@ -132,22 +141,36 @@ class UserInterface:
 
     # Add a menu option.
     def add_menu_option(self, label: str, id: str, alias: str | list[str], command: callable, index: int = 0, visible: bool = True) -> None:
+        """
+            Adds a menu option to a list.
+        """
+        
         # Skip if the option already exists
         if self.menu_option_exists(id):
             return
 
         
+        # Otherwise, add the option to the list.
         self.menu_options.insert(index, MenuOption(label, id, alias, command, visible))
 
 
     # Clear every menu option from the list.
     def clear_menu_options(self) -> None:
+        """
+            Removes every menu option.
+        """
+
         for option in self.menu_options:
             self.remove_menu_option(option.id)
 
 
     # Display the list of options
     def display_options(self) -> None:
+        """
+            Displays a list of options to choose from.
+        """
+
+
         output: str = ""
 
 
@@ -173,29 +196,38 @@ class UserInterface:
                 continue
 
 
-            # Now output the list of options
+            
             output += f"[{__alias__}]: {option.label}\n"
 
 
-        
+        # Now output the list of options
         print(output)
 
                     
     # Add a predefined list of options for the menu
     def __add_predefined_options__(self) -> None:
+        """
+            Adds a list of predefined options to the main menu.
+
+            The options include the option to log in, create accounts and view a list of users (when logged in).
+        """
+
         # Clear everything before continuing
         self.clear_menu_options()
 
 
+        # Add the options to log in or sign up
         self.add_menu_option("Log in", "login", "1", self.account_manager.login, 0)
         self.add_menu_option("Sign up", "register", "2", self.account_manager.register_account, 1)
         
+        # Add the option to view a list of accounts when logged in.
         if self.account_manager.is_logged_in():
             self.add_menu_option("View list of users", "list_user_accounts", "3", self.account_manager.view_list, 2)
         else:
-            self.remove_menu_option("list_user_accounts")
+            self.remove_menu_option("list_user_accounts") # Ensure that the option is removed if signed out.
 
 
+        # Add the option to exit out of the program.
         self.add_menu_option("Quit", "exit", "Q", exit, 3)
 
 
@@ -256,7 +288,7 @@ class UserInterface:
                 # Stop once everything is finished
                 break
 
-            
+            # Clear everything from the console window when finished.
             clear_console()
                     
 

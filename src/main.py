@@ -23,6 +23,10 @@ class App:
 
     
     def run(self) -> None:
+        """
+            Run the program.    
+        """
+
         # Create the user interface
         ui: UserInterface = UserInterface(self.path, self.break_upon_error)
         ui.run()
