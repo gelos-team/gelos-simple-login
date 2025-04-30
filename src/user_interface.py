@@ -217,14 +217,17 @@ class UserInterface:
 
 
         # Add the options to log in or sign up
-        self.add_menu_option("Log in", "login", "1", self.account_manager.login, 0)
+        self.add_menu_option("Log in", "login", "1", self.account_manager.login, 0) \
+            if not self.account_manager.db_manager.is_database_empty_or_nonexistent() \
+                else self.remove_menu_option("login")
+        
+
         self.add_menu_option("Sign up", "register", "2", self.account_manager.register_account, 1)
         
         # Add the option to view a list of accounts when logged in.
-        if self.account_manager.is_logged_in():
-            self.add_menu_option("View list of users", "list_user_accounts", "3", self.account_manager.view_list, 2)
-        else:
-            self.remove_menu_option("list_user_accounts") # Ensure that the option is removed if signed out.
+        self.add_menu_option("View list of users", "list_user_accounts", "3", self.account_manager.view_list, 2) \
+        if self.account_manager.is_logged_in() else \
+        self.remove_menu_option("list_user_accounts")
 
 
         # Add the option to exit out of the program.
