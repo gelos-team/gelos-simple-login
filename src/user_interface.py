@@ -6,11 +6,10 @@
     Description: The user interface for the login program.
 """
 
-from pathlib import *
-from database import *
-from account import *
+from pathlib import Path
+from database import DatabaseManager
+from account import AccountManager
 import string
-import time
 import sys
 import os
 
@@ -228,6 +227,8 @@ class UserInterface:
 
             # Do something when an option is selected.
             for option in self.menu_options:
+                finished: bool = False
+
                 match type(option.alias).__name__:
                     case "str":
                         if user_input.strip() != option.alias:
@@ -238,6 +239,8 @@ class UserInterface:
                         clear_console()
 
                         option.run()
+                        finished = True
+
                     
                     case "list":
                         for alias in option.alias:
@@ -248,6 +251,12 @@ class UserInterface:
                             clear_console()
 
                             option.run()
+                            finished = True
+                            break
+
+
+                # Stop once everything is finished
+                break
 
             
             clear_console()

@@ -6,7 +6,7 @@
     Description: Responsible for reading and writing to and from the database
 """
 
-from pathlib import *
+from pathlib import Path
 import os
 import sys
 

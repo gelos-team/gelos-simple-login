@@ -7,10 +7,10 @@
 """
 
 
-from pathlib import *
-from database import *
+from database import DatabaseManager
 from getpass import getpass
 import string
+import sys
 
 
 class InvalidCredentialsError(Exception):
@@ -309,6 +309,9 @@ class AccountManager:
             # Otherwise, stop the login process
             sys.stderr.write("Something went wrong: " + str(err))
             return
+        
+
+        input("Press enter to continue")
 
                 
 
