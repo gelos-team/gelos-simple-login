@@ -6,6 +6,7 @@
     Description: Responsible for reading and writing to and from the database
 """
 
+
 from pathlib import Path
 import os
 import sys
@@ -15,9 +16,11 @@ import sys
 def print_error(msg: object) -> None:
     sys.stderr.write("ERROR: " + str(msg) + "\n")
 
+
 class DatabaseReadError(Exception):
     def __init__(self, *args) -> None:
         super().__init__(*args)
+
 
 class DatabaseWriteError(Exception):
     def __init__(self, *args) -> None:

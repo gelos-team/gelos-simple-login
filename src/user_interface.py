@@ -6,6 +6,7 @@
     Description: The user interface for the login program.
 """
 
+
 from pathlib import Path
 from database import DatabaseManager
 from account import AccountManager
@@ -25,6 +26,7 @@ class MenuOption:
 
         # Check if the alias is valid
         self.__check_alias__(self.alias)
+
 
     # Check if a character is a valid letter or a number.
     def __is_letter_or_number__(self, character: str) -> bool:
@@ -81,7 +83,7 @@ class MenuOption:
         try:
             self.command()
         except Exception as err:
-            raise type(err)(str(err))
+            raise
 
 
 # Clear the console window
@@ -138,13 +140,12 @@ class UserInterface:
         
         self.menu_options.insert(index, MenuOption(label, id, alias, command, visible))
 
-        
-
 
     # Clear every menu option from the list.
     def clear_menu_options(self) -> None:
         for option in self.menu_options:
             self.remove_menu_option(option.id)
+
 
     # Display the list of options
     def display_options(self) -> None:
@@ -198,9 +199,7 @@ class UserInterface:
 
         self.add_menu_option("Quit", "exit", "Q", exit, 3)
 
-        
 
-    
     def run(self) -> None:
         while True:
             # Clear the console window before continuing
