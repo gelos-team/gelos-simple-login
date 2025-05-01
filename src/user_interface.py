@@ -186,12 +186,12 @@ class UserInterface:
             if type(option.alias).__name__ == "list":
                 for alias in option.alias:
                     if option.alias.index(alias) < len(option.alias) - 1:
-                        __alias__ += alias + ", "
+                        __alias__ += alias.upper() + ", "
                         continue
 
                     __alias__ += alias
             elif type(option.alias).__name__ == "str":
-                __alias__ = option.alias
+                __alias__ = option.alias.upper()
             else:
                 continue
 
@@ -231,7 +231,7 @@ class UserInterface:
 
 
         # Add the option to exit out of the program.
-        self.add_menu_option("Quit", "exit", "Q", exit, 3)
+        self.add_menu_option("Quit", "exit", "q", exit, 3)
 
 
     def run(self) -> None:
@@ -261,7 +261,7 @@ class UserInterface:
 
                 match type(option.alias).__name__:
                     case "str":
-                        if user_input.strip() != option.alias:
+                        if user_input.upper().strip() != option.alias.upper():
                             continue
 
 
@@ -274,7 +274,7 @@ class UserInterface:
                     
                     case "list":
                         for alias in option.alias:
-                            if user_input.strip() != alias:
+                            if user_input.upper().strip() != alias.upper():
                                 continue
 
                             # Clear the console before continuing
