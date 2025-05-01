@@ -172,12 +172,6 @@ class AccountManager:
                 continue
 
 
-            except KeyboardInterrupt:
-                print("\nAccount creation cancelled")
-                running = False
-                break
-
-
             except Exception as err:
                 if self.break_upon_error: # Print an error message if specified.
                     raise
@@ -274,10 +268,6 @@ class AccountManager:
                 continue
 
 
-            except KeyboardInterrupt:
-                print("\nLog in cancelled")
-                running = False
-                break
             except Exception as err:
                 if self.break_upon_error: # Print an error message if specified.
                     raise

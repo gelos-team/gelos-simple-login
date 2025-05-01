@@ -83,6 +83,11 @@ class MenuOption:
     def run(self) -> None:
         try:
             self.command()
+        
+        except KeyboardInterrupt:
+            clear_console()
+            return
+        
         except Exception as err:
             raise
 
@@ -207,6 +212,7 @@ class UserInterface:
         # Now output the list of options
         print(output)
 
+    # 
                     
     # Add a predefined list of options for the menu
     def __add_predefined_options__(self) -> None:
@@ -258,7 +264,6 @@ class UserInterface:
             # Prompt the user to choose an option.
             user_input: str = input("Choose an option from the list: ")
 
-
             # Do something when an option is selected.
             for option in self.menu_options:
                 finished: bool = False
@@ -287,12 +292,4 @@ class UserInterface:
                             option.run()
                             finished = True
                             break
-
-
-                # Stop once everything is finished
-                break
-
-            # Clear everything from the console window when finished.
-            clear_console()
-                    
 
