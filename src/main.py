@@ -6,7 +6,7 @@
     Description: The main program
 """
 
-from user_interface import UserInterface
+from user_interface import UserInterface, clear_console
 from pathlib import Path
 import sys
 
@@ -22,6 +22,9 @@ class App:
         self.path = path
         self.break_upon_error = break_upon_error
 
+    # Close and exit the program.
+    def quit(self) -> None:
+        sys.exit()
     
     def run(self) -> None:
         """
@@ -30,8 +33,14 @@ class App:
 
         try:
             # Create the user interface
-            ui: UserInterface = UserInterface(self.path, self.break_upon_error)
+            ui: UserInterface = UserInterface(self.path, self.break_upon_error, self.quit)
             ui.run()
+
+        # Quit the application when Ctrl+C is pressed instead of spitting out a whole heap of jargon.
+        except KeyboardInterrupt:
+            clear_console()
+            self.quit()
+
         except Exception as err:
             if self.break_upon_error:
                 raise

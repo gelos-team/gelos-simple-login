@@ -10,6 +10,7 @@
 from pathlib import Path
 from database import DatabaseManager
 from account import AccountManager
+from typing import Callable
 import string
 import sys
 import os
@@ -96,12 +97,15 @@ def clear_console() -> None:
 
 # The main user interface
 class UserInterface:
-    def __init__(self, database_path: Path, break_upon_error: bool = False) -> None:
+    def __init__(self, database_path: Path, break_upon_error: bool = False, quit_command: Callable = sys.exit) -> None:
         # For logging in, account registration, checking if the user is logged in and viewing the list of accounts.
         self.account_manager: AccountManager = AccountManager(DatabaseManager(database_path, break_upon_error), break_upon_error)
 
         # The list of menu options
         self.menu_options: list[MenuOption] = []
+
+        # Handle quitting the application
+        self.quit_command = quit_command
 
         # Check if the user is logged in.
         self.is_user_logged_in = False
@@ -231,7 +235,7 @@ class UserInterface:
 
 
         # Add the option to exit out of the program.
-        self.add_menu_option("Quit", "exit", "q", exit, 3)
+        self.add_menu_option("Quit", "exit", "q", self.quit_command, 3)
 
 
     def run(self) -> None:
