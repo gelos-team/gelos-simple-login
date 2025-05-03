@@ -1,1 +1,0 @@
-.venv\py3.12\scripts\activate && py "%CD%\src\main.py"
