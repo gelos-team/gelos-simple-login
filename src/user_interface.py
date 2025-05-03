@@ -9,7 +9,7 @@
 
 from pathlib import Path
 from database import DatabaseManager
-from account import AccountManager
+from account import AccountManager, InvalidCredentialsError
 from typing import Callable
 import string
 import sys
@@ -17,12 +17,12 @@ import os
 
 
 class MenuOption:
-    def __init__(self, label: str, id: str, alias: str | list[str], command: callable, visible: bool = True) -> None:
+    def __init__(self, label: str, id: str, alias: str, command: Callable, visible: bool = True) -> None:
         # Settings
         self.label: str = label
         self.id: str = id
-        self.alias: str | list[str] = alias
-        self.command: callable = command
+        self.alias: str = alias
+        self.command: Callable = command
         self.visible: bool = visible
 
         # Check if the alias is valid
@@ -40,45 +40,22 @@ class MenuOption:
 
     
     # Check if the length of the alias is equal to one character and is either a letter or a number.
-    def __check_alias__(self, alias: str | list[str]) -> None:
-        match type(alias).__name__:
-            case "str":
-                is_singular_character: bool = self.__is_single_character__(alias)
-                isnt_symbol: bool = self.__is_letter_or_number__(alias)
+    def __check_alias__(self, alias: str) -> None:
+        is_singular_character: bool = self.__is_single_character__(alias)
+        isnt_symbol: bool = self.__is_letter_or_number__(alias)
 
 
-                # Print an error message if it isn't a singular
-                # character.
-                if not is_singular_character:
-                    raise Exception("The alias must be one character in length.")
-                
-                
-                # Do the same thing if the alias isn't a letter or number,
-                if not isnt_symbol:
-                    raise Exception("The alias must be a letter (a-z, A-Z) or number (0-9)")
+        # Print an error message if it isn't a singular
+        # character.
+        if not is_singular_character:
+            raise Exception("The alias must be one character in length.")
         
-            case "list":
-                for letter in alias:
-                    # Print an error message if the alias isn't valid text.
-                    if type(letter) != str:
-                        raise TypeError("The alias must be of type 'str'")
-                    
-                
-                    is_singular_character: bool = self.__is_single_character__(letter)
-                    isnt_symbol: bool = self.__is_letter_or_number__(letter)
+        
+        # Do the same thing if the alias isn't a letter or number,
+        if not isnt_symbol:
+            raise Exception("The alias must be a letter (a-z, A-Z) or number (0-9)")
 
 
-                    # Print an error message if it isn't a singular
-                    # character.
-                    if not is_singular_character:
-                        raise Exception("The alias must be one character in length.")
-                    
-                    
-                    # Do the same thing if the alias isn't a letter or number,
-                    if not isnt_symbol:
-                        raise Exception("The alias must be a letter (a-z, A-Z) or number (0-9)")
-                    
-    
     # Do something if told so.
     def run(self) -> None:
         try:
@@ -111,9 +88,6 @@ class UserInterface:
 
         # Handle quitting the application
         self.quit_command = quit_command
-
-        # Check if the user is logged in.
-        self.is_user_logged_in = False
 
 
     # Check if a menu option already exists.
@@ -188,31 +162,13 @@ class UserInterface:
             if not option.visible:
                 continue
 
-            # List any aliases that the option uses.
-            __alias__: str = ""
-
-
-            if type(option.alias).__name__ == "list":
-                for alias in option.alias:
-                    if option.alias.index(alias) < len(option.alias) - 1:
-                        __alias__ += alias.upper() + ", "
-                        continue
-
-                    __alias__ += alias
-            elif type(option.alias).__name__ == "str":
-                __alias__ = option.alias.upper()
-            else:
-                continue
-
-
             
-            output += f"[{__alias__}]: {option.label}\n"
+            output += f"[{option.alias.upper()}]: {option.label}\n"
 
 
         # Now output the list of options
         print(output)
 
-    # 
                     
     # Add a predefined list of options for the menu
     def __add_predefined_options__(self) -> None:
@@ -244,10 +200,34 @@ class UserInterface:
         self.add_menu_option("Quit", "exit", "q", self.quit_command, 3)
 
 
+    # Output the heading of the program.
+    def __display_header__(self) -> None:
+        print(f"""Gelos Account Login
+{f"Currently logged in as: {self.account_manager.current_account}" if self.account_manager.is_logged_in() else ""}
+""")
+
+
+    # Check if the option has symbols
+    def __has_symbols__(self, text: str) -> bool:
+        for letter in text:
+            # Stop if there is a match.
+            if letter in string.punctuation:
+                return True
+            
+        
+        return False
+
+
     def run(self) -> None:
+        message: str = ""
+
+
         while True:
             # Clear the console window before continuing
             clear_console()
+
+            # Display the heading of the program.
+            self.__display_header__()
 
             # Create the predefined list of options
             self.__add_predefined_options__()
@@ -255,41 +235,66 @@ class UserInterface:
             # Display the list of options
             self.display_options()
 
-            # Display the current username if logged in.
-            if self.account_manager.is_logged_in():
-                print(f"Current user: {self.account_manager.current_account}")
-            else:
-                print("Currently signed out.")
+
+            # Display a message if there is any.
+            print(f"{message}\n")
+
 
             # Prompt the user to choose an option.
             user_input: str = input("Choose an option from the list: ")
 
-            # Do something when an option is selected.
-            for option in self.menu_options:
-                finished: bool = False
-
-                match type(option.alias).__name__:
-                    case "str":
-                        if user_input.upper().strip() != option.alias.upper():
-                            continue
+            try:
+                # Stop if there was no user input
+                if len(user_input.strip()) <= 0:
+                    message = "The option field cannot be empty."
+                    continue
 
 
-                        # Clear the console before continuing
-                        clear_console()
+                # Check if there isn't a symbol in the input.
+                if self.__has_symbols__(user_input):
+                    message = "The option field must not contain symbols."
+                    continue
 
-                        option.run()
-                        finished = True
+
+                # Stop if the input is longer than 1 character
+                if len(user_input) > 1:
+                    message = "The option must be 1 character in length."
+                    continue
+
+
+                # Print a message if an incorrect option was selected.
+                is_option_valid: bool = False
+
+
+                # Do something when an option is selected.
+                for option in self.menu_options:
+                    if user_input.upper().strip() != option.alias.upper():
+                        is_option_valid = False
+                        continue
 
                     
-                    case "list":
-                        for alias in option.alias:
-                            if user_input.upper().strip() != alias.upper():
-                                continue
+                    is_option_valid = True
 
-                            # Clear the console before continuing
-                            clear_console()
+                    # Clear the console before continuing
+                    clear_console()
+                    message = ""
 
-                            option.run()
-                            finished = True
-                            break
+                    option.run()
+                    break
 
+
+                if not is_option_valid:
+                    message = "Please choose a valid option from the list."
+
+            
+            except InvalidCredentialsError as err:
+                message = str(err)
+                continue
+
+            except Exception as err:
+                # Ignore if exitting the program.
+                if type(err) is SystemExit:
+                    pass
+
+                message = "Something went wrong."
+                continue

@@ -122,7 +122,7 @@ class AccountManager:
 
                 # Check if the username isn't empty.
                 if len(username) <= 0:
-                    raise InvalidCredentialsError("ERROR: Please enter a username.\n")
+                    raise InvalidCredentialsError("Please enter a username.\n")
 
 
                 # Check if the username is available.
@@ -136,18 +136,18 @@ class AccountManager:
                             break
 
                     if not username_available:
-                        raise InvalidCredentialsError(f"The username {username} is not available. Please choose a different one and try again.")
+                        raise InvalidCredentialsError(f"The username {username} is already taken. Please choose a different one and try again.")
 
 
                 # Now ask the user to enter a password for 
                 # the account.
-                password: str = getpass("Enter a password for " + username + ": ").strip()
+                password: str = getpass("Now enter a password: ").strip()
 
 
                 # Restart if the password requirements
                 # haven't been met.
                 if not self.password_meets_requirements(password):
-                    raise InvalidCredentialsError("Password must have atleast 8 characters, lowercase letters, uppercase letters, numbers and symbols.")
+                    raise InvalidCredentialsError("Password must be 8 characters long and contain lowercase letters, uppercase letters, numbers and symbols.")
 
                 
                 # Check if the password is entered correctly.
@@ -155,14 +155,14 @@ class AccountManager:
 
 
                 if password != password_2:
-                    raise InvalidCredentialsError("Passwords do not match. Please try again.")
+                    raise InvalidCredentialsError("Passwords don't match.")
                     
 
                 self.db_manager.write(self.db_manager.read() + f"\n{username},{password}")
                 self.db_manager.write(self.db_manager.read())
 
 
-                input("The account has been created successfully. Press any key to continue.")
+                input("The account was created successfully. Press enter to continue.")
 
                 break
 
@@ -230,11 +230,11 @@ class AccountManager:
 
                 # Restart if there isn't a match.
                 if not username_matches:
-                    raise InvalidCredentialsError(f"The username {username} doesn\'t exist. Please try again.")
+                    raise InvalidCredentialsError(f"An account by the username '{username}' doesn't exist.")
 
 
                 # Prompt the user to enter a password for the account.
-                password: str = getpass("Enter a password for " + username + ": ")
+                password: str = getpass("Enter password: ")
 
 
                 is_password_correct: bool = False
@@ -254,7 +254,7 @@ class AccountManager:
 
                 # Restart if the password is incorrect
                 if not is_password_correct:
-                    raise InvalidCredentialsError("Password is incorrect. Please try again.")
+                    raise InvalidCredentialsError("Incorrect password. Please try again.")
 
 
                 # Log in using the account details and exit.
@@ -315,7 +315,9 @@ class AccountManager:
                 index += 1
 
 
-            print(list_of_users.strip())
+            print(f"""List of users
+
+{list_of_users}""")
 
         except InvalidCredentialsError as err:
             print_error(str(err))
