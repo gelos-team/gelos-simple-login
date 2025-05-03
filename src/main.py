@@ -22,6 +22,10 @@ class App:
         self.path = path
         self.break_upon_error = break_upon_error
 
+
+        # The main user interface.
+        self.ui: UserInterface = UserInterface(self.path, self.break_upon_error, self.quit)
+
     # Close and exit the program.
     def quit(self) -> None:
         sys.exit()
@@ -33,8 +37,7 @@ class App:
 
         try:
             # Create the user interface
-            ui: UserInterface = UserInterface(self.path, self.break_upon_error, self.quit)
-            ui.run()
+            self.ui.run()
 
         # Quit the application when Ctrl+C is pressed instead of spitting out a whole heap of jargon.
         except KeyboardInterrupt:
