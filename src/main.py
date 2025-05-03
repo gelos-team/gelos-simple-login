@@ -41,6 +41,11 @@ class App:
 
         # Quit the application when Ctrl+C is pressed instead of spitting out a whole heap of jargon.
         except KeyboardInterrupt:
+            # Clean up everything before closing
+            self.ui.clear_menu_options()
+            self.ui.account_manager.current_account = ""
+            self.ui = None
+
             clear_console()
             self.quit()
 
@@ -49,7 +54,7 @@ class App:
                 raise
             else:
                 sys.stderr.write("Something went wrong and the program has to quit.")
-                sys.exit(-1)
+                self.quit()
 
 
 
