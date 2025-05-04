@@ -19,6 +19,7 @@ class InvalidCredentialsError(Exception):
 
 # Print an error message.
 def print_error(msg: object) -> None:
+    """Prints an error message to the console."""
     sys.stderr.write("ERROR: " + str(msg) + "\n")
 
 
@@ -33,9 +34,7 @@ class AccountManager:
 
     # Check if the user is logged in.
     def is_logged_in(self) -> bool:
-        """
-            Check if the user is logged in.
-        """
+        """Checks if the user is logged in by reading through the database and seeing if the current username exists."""
         # Do nothing if the database is empty or non-existant
         if self.db_manager.is_database_empty_or_nonexistent():
             return False
@@ -53,9 +52,8 @@ class AccountManager:
 
     # Check if the password meets the requirements
     def password_meets_requirements(self, password: str) -> None:
-        """
-            Checks if the user's password meets the requirements
-            defined in the Microsoft Complexity Standards inside the Gelos Password Policy.
+        """Checks if the user's password meets the requirements
+defined in the Microsoft Password Complexity Standards.
         """
 
         # Check if the password requirements are met
@@ -90,7 +88,7 @@ class AccountManager:
     # Handle the account registration process.
     def register_account(self) -> None:
         """
-            Creates an account and adds it to the database.
+        Prompts the user to enter a username and password for the account they are creating. Then creates the account using the details provided and adds it to the database.
         """
 
         running: bool = True
@@ -184,9 +182,7 @@ class AccountManager:
 
     # Handle the log in process.
     def login(self) -> None:
-        """
-            Deals with logging in using the user's account details.
-        """
+        """Prompts the user to enter a username and password and attempts to log the user into the account if the details match."""
 
         running: bool = True
 
@@ -279,11 +275,8 @@ class AccountManager:
 
     # View list of accounts without their passwords.
     def view_list(self) -> None:
-        """
-            Responsible for grabbing and displaying a list of users.
-
-            Only works when logged in.
-        """
+        """Reads from the database and displays a list of users.
+The user needs to be logged in before viewing the list."""
 
         try:
             # Stop if either the database doesn't exist or is empty.

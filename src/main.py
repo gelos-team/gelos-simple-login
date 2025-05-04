@@ -28,14 +28,14 @@ class App:
 
     # Close and exit the program.
     def quit(self) -> None:
+        """Exits the program"""
+
         clear_console()
         sys.exit()
 
 
     def run(self) -> None:
-        """
-            Run the program.    
-        """
+        """Run the program."""
 
         try:
             # Create the user interface

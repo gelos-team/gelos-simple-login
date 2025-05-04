@@ -121,9 +121,8 @@ class UserInterface:
 
     # Check if a menu option already exists.
     def menu_option_exists(self, id: str) -> bool:
-        """
-            Checks if a menu option exists by looking for it's I.D.
-        """
+        """Checks if the menu option exists by reading the list and finding one based on it's ID.
+Will return True if an option exists, otherwise it will return False."""
 
         for menu_option in self.menu_options:
             # If a menu option exists then...
@@ -136,9 +135,7 @@ class UserInterface:
 
     # Remove an option from the menu.
     def remove_menu_option(self, id: str) -> None:
-        """
-            Removes a menu option based on the I.D.
-        """
+        """Removes an option by looking through the list and finding one based on the ID."""
 
         # Skip if the option already exists
         if not self.menu_option_exists(id):
@@ -153,9 +150,10 @@ class UserInterface:
 
     # Add a menu option.
     def add_menu_option(self, label: str, id: str, alias: str | list[str], command: callable, index: int = 0, visible: bool = True) -> None:
-        """
-            Adds a menu option to a list.
-        """
+        """Adds a menu option with it's own label, ID, alias, index and whether it's visible and what it does when selected.
+
+        
+Skips if the option already exists based on it's ID"""
         
         # Skip if the option already exists
         if self.menu_option_exists(id):
@@ -169,7 +167,7 @@ class UserInterface:
     # Clear every menu option from the list.
     def clear_menu_options(self) -> None:
         """
-            Removes every menu option.
+            Removes every menu option from the list.
         """
 
         for option in self.menu_options:
@@ -178,9 +176,9 @@ class UserInterface:
 
     # Display the list of options
     def display_options(self) -> None:
-        """
-            Displays a list of options to choose from.
-        """
+        """This method reads and displays a list of menu options including it's ID and label unless it's invisible.
+
+Sometimes, certain options are visible if logged in."""
 
 
         output: str = ""

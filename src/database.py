@@ -14,6 +14,8 @@ import sys
 
 # Print an error message.
 def print_error(msg: object) -> None:
+    """Prints an error message"""
+
     sys.stderr.write("ERROR: " + str(msg) + "\n")
 
 
@@ -28,11 +30,17 @@ class DatabaseManager:
 
     # Check if the database is empty or non-existant
     def is_database_empty_or_nonexistent(self) -> bool:
+        """Checks if the database is non-existant or empty."""
+
         return not self.path.exists() or len(self.read()) <= 0
 
 
     # Read the contents from the database.
     def __read__(self, path: Path, break_upon_error: bool = False) -> str:
+        """Reads the contents from the database.
+Using DatabaseManager.read() is recommended."""
+
+
         # Check if the database file exists inside the storage device.
         if not path.exists():
             return "" # Output nothing if the file could not be found
@@ -57,6 +65,9 @@ class DatabaseManager:
 
     # Write contents to the database
     def __write__(self, path: Path, contents: str, break_upon_error: bool = False) -> None:
+        """Writes new contents to the database.
+Using DatabaseManager.write() is recommended."""
+        
         try:
             # Create the file if it doesn't exist.
             if not path.exists():
@@ -97,8 +108,10 @@ class DatabaseManager:
 
 
     def read(self) -> str: # Provide a more friendlier approach to reading from the database.
+        """Reads the contents from the database."""
         return self.__read__(self.path, self.break_upon_error)
 
 
     def write(self, contents: str) -> None: # Do the same thing but for writing to the database.
+        """Writes new contents from the database."""
         self.__write__(self.path, contents, self.break_upon_error)
