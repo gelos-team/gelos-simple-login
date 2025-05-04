@@ -25,6 +25,7 @@ class MenuOption:
         self.command: Callable = command
         self.visible: bool = visible
 
+
         # Check if the alias is valid
         self.__check_alias__(self.alias)
 
@@ -60,11 +61,13 @@ class MenuOption:
     def run(self) -> None:
         try:
             self.command()
-        
+
+
         except KeyboardInterrupt:
             clear_console()
             return
-        
+
+
         except Exception as err:
             raise
 
@@ -124,6 +127,7 @@ class UserInterface:
         """Checks if the menu option exists by reading the list and finding one based on it's ID.
 Will return True if an option exists, otherwise it will return False."""
 
+
         for menu_option in self.menu_options:
             # If a menu option exists then...
             if menu_option.id == id:
@@ -136,6 +140,7 @@ Will return True if an option exists, otherwise it will return False."""
     # Remove an option from the menu.
     def remove_menu_option(self, id: str) -> None:
         """Removes an option by looking through the list and finding one based on the ID."""
+
 
         # Skip if the option already exists
         if not self.menu_option_exists(id):
@@ -154,6 +159,7 @@ Will return True if an option exists, otherwise it will return False."""
 
         
 Skips if the option already exists based on it's ID"""
+
         
         # Skip if the option already exists
         if self.menu_option_exists(id):
@@ -210,6 +216,7 @@ Sometimes, certain options are visible if logged in."""
             if type(option) is not dict: # Skip if an invalid option is detected
                 continue
 
+
             # Add the option to the list
             if option["requires_login"] and not self.account_manager.is_logged_in(): # Skip if not logged in unless said otherwise.
                 self.remove_menu_option(option["id"])
@@ -223,7 +230,6 @@ Sometimes, certain options are visible if logged in."""
             self.remove_menu_option("quit")
             self.add_menu_option("Quit", "quit", "Q", self.quit_command, len(self.menu_options))
             
-
 
     # Output the heading of the program.
     def __display_header__(self) -> None:
@@ -260,13 +266,14 @@ Sometimes, certain options are visible if logged in."""
             # Display the list of options
             self.display_options()
 
-
             # Display a message if there is any.
             print(f"{message}\n")
 
 
+
             # Prompt the user to choose an option.
             user_input: str = input("Choose an option from the list: ")
+
 
             try:
                 # Stop if there was no user input
@@ -297,12 +304,17 @@ Sometimes, certain options are visible if logged in."""
                         is_option_valid = False
                         continue
 
+
                     # Clear the console before continuing
                     clear_console()
                     
+
+                    # Do something if an option has been selected.
                     is_option_valid = True
 
+                    # Clear the message before doing anything
                     message = ""
+
 
                     option.run()
                     break
@@ -316,9 +328,11 @@ Sometimes, certain options are visible if logged in."""
                 message = str(err)
                 continue
 
+
             except LoginError as err:
                 message = str(err)
                 continue
+
 
             except AccountCreationError as err:
                 message = str(err)

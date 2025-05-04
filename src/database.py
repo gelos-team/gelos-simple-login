@@ -24,6 +24,7 @@ class DatabaseManager:
         # The location leading to the database
         self.path: Path = database_path
 
+
         # Stop if an error occurred unless told otherwise
         self.break_upon_error = break_upon_error
 
@@ -50,10 +51,12 @@ Using DatabaseManager.read() is recommended."""
             # Try and read from the database
             with path.open() as database:
                 return database.read().strip()
-        
+
+
         except FileNotFoundError: # Do nothing if the database could not be found.
             return ""
-        
+
+
         except Exception as err: # Output nothing if something goes wrong while reading from the database.
             # Print an error message unless said otherwise.
             if break_upon_error:
@@ -90,7 +93,7 @@ Using DatabaseManager.write() is recommended."""
 
             # Stop if there are no differences
             old_db_contents: str = self.__read__(path, break_upon_error)
-
+            
             if contents == old_db_contents:
                 return
 
@@ -98,6 +101,7 @@ Using DatabaseManager.write() is recommended."""
             # Otherwise, write the new contents to the database.
             with path.open("w") as database:
                 database.write(contents)
+
 
         except Exception as err: # Do nothing if something went wrong writing to the database.
             if break_upon_error:

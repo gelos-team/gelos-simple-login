@@ -54,6 +54,7 @@ class AccountManager:
         self.db_manager: DatabaseManager = db_manager
         self.break_upon_error: bool = break_upon_error
 
+
         self.current_account: str = ""
 
 
@@ -80,6 +81,7 @@ class AccountManager:
         """Checks if the user's password meets the requirements
 defined in the Microsoft Password Complexity Standards.
         """
+
 
         # Check if the password requirements are met
         has_lowercase_letters: bool = False
@@ -183,7 +185,6 @@ defined in the Microsoft Password Complexity Standards.
 
                 self.db_manager.write(self.db_manager.read() + f"\n{username},{password}")
                 self.db_manager.write(self.db_manager.read())
-
                 break
 
             
@@ -331,7 +332,9 @@ The user needs to be logged in before viewing the list."""
                     username: str = account.split(",")[0].strip()
 
                     # Now add the username to the list
-                    list_of_users += f"#{index}: {username}\n"
+                    list_of_users += f"#{index}: {username}{"\n" if self.db_manager.read().index(account) <= len(self.db_manager.read()) - 1 else ""}"
+
+                
                 except Exception as err: # Skip if an error had occurred
                     continue
 
@@ -347,6 +350,11 @@ The user needs to be logged in before viewing the list."""
         except InvalidCredentialsError as err:
             print_error(str(err))
             return
+        
+
+        except KeyboardInterrupt:
+            pass
+        
 
         except Exception as err:
             if self.break_upon_error: # Print an error message if specified.
