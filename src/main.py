@@ -12,7 +12,7 @@ import sys
 
 
 # The location pointing to the database.
-database_path: Path = Path("./test_data/accounts.txt")
+database_path: Path = Path("test_data/accounts.txt")
 
 
 class App:
@@ -29,7 +29,6 @@ class App:
     # Close and exit the program.
     def quit(self) -> None:
         """Exits the program"""
-
         clear_console()
         sys.exit()
 
@@ -43,7 +42,6 @@ class App:
 
         # Quit the application when Ctrl+C is pressed instead of spitting out a whole heap of jargon.
         except KeyboardInterrupt:
-            clear_console()
             self.quit()
 
         except Exception as err:

@@ -58,9 +58,8 @@ Using DatabaseManager.read() is recommended."""
             # Print an error message unless said otherwise.
             if break_upon_error:
                 raise
-
-
-            return ""
+            else:
+                return ""
 
 
     # Write contents to the database
@@ -103,8 +102,8 @@ Using DatabaseManager.write() is recommended."""
         except Exception as err: # Do nothing if something went wrong writing to the database.
             if break_upon_error:
                 raise
-
-            return
+            else:
+                return
 
 
     def read(self) -> str: # Provide a more friendlier approach to reading from the database.

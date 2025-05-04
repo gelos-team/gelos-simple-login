@@ -149,7 +149,7 @@ Will return True if an option exists, otherwise it will return False."""
                 
 
     # Add a menu option.
-    def add_menu_option(self, label: str, id: str, alias: str | list[str], command: callable, index: int = 0, visible: bool = True) -> None:
+    def add_menu_option(self, label: str, id: str, alias: str, command: callable, index: int = 0, visible: bool = True) -> None:
         """Adds a menu option with it's own label, ID, alias, index and whether it's visible and what it does when selected.
 
         
