@@ -9,7 +9,7 @@
 
 from pathlib import Path
 from database import DatabaseManager
-from account import AccountManager, InvalidCredentialsError
+from account import AccountManager, InvalidCredentialsError, LoginError, AccountCreationError, LoginCancelled, AccountCreationCancelled
 from typing import Callable
 import string
 import sys
@@ -297,11 +297,11 @@ Sometimes, certain options are visible if logged in."""
                         is_option_valid = False
                         continue
 
+                    # Clear the console before continuing
+                    clear_console()
                     
                     is_option_valid = True
 
-                    # Clear the console before continuing
-                    clear_console()
                     message = ""
 
                     option.run()
@@ -315,6 +315,30 @@ Sometimes, certain options are visible if logged in."""
             except InvalidCredentialsError as err:
                 message = str(err)
                 continue
+
+            except LoginError as err:
+                message = str(err)
+                continue
+
+            except AccountCreationError as err:
+                message = str(err)
+                continue
+
+
+            except LoginError as err:
+                message = str(err)
+                continue
+
+
+            except AccountCreationCancelled:
+                message = "Account creation cancelled."
+                continue
+
+
+            except LoginCancelled:
+                message = "Login cancelled."
+                continue
+
 
             except Exception as err:
                 # Ignore if exitting the program.

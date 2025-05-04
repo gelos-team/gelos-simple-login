@@ -11,9 +11,26 @@ from database import DatabaseManager
 from getpass import getpass
 import string
 import sys
+import os
 
 
 class InvalidCredentialsError(Exception):
+    pass
+
+
+class LoginError(Exception):
+    pass
+
+
+class AccountCreationError(Exception):
+    pass
+
+
+class AccountCreationCancelled(Exception):
+    pass
+
+
+class LoginCancelled(Exception):
     pass
 
 
@@ -21,6 +38,14 @@ class InvalidCredentialsError(Exception):
 def print_error(msg: object) -> None:
     """Prints an error message to the console."""
     sys.stderr.write("ERROR: " + str(msg) + "\n")
+
+
+# Clear the console window
+def clear_console() -> None:
+    try:
+        os.system("cls" if sys.platform == "win32" else "clear")
+    except:
+        print("\033[2J\033[H")
 
 
 class AccountManager:
@@ -159,13 +184,15 @@ defined in the Microsoft Password Complexity Standards.
                 self.db_manager.write(self.db_manager.read() + f"\n{username},{password}")
                 self.db_manager.write(self.db_manager.read())
 
-
-                input("The account was created successfully. Press enter to continue.")
-
                 break
 
+            
+            except KeyboardInterrupt:
+                raise AccountCreationCancelled
+            
 
             except InvalidCredentialsError as err:
+                clear_console()
                 print_error(str(err))
                 continue
 
@@ -191,8 +218,7 @@ defined in the Microsoft Password Complexity Standards.
             try:
                 # Exit if the database doesn't exist
                 if not self.db_manager.path.exists:
-                    sys.stderr.write("ERROR: The database doesn't exist at the moment.\n")
-                    return
+                    raise LoginError("The database couldn't be found inside the system.")
                 
 
                 # Read from the database
@@ -201,8 +227,7 @@ defined in the Microsoft Password Complexity Standards.
 
                 # Exit if the database is empty.
                 if len(database_contents) <= 0:
-                    sys.stderr.write("ERROR: The database is currently empty.\n")
-                    return
+                    raise LoginError("The database doesn't have any entries stored.")
                 
 
                 # Prompt the user to enter a username
@@ -255,11 +280,16 @@ defined in the Microsoft Password Complexity Standards.
 
                 # Log in using the account details and exit.
                 self.current_account = username
-                input("Account logged in successfully. Press enter to continue")
 
                 break
+
+
+            except KeyboardInterrupt:
+                raise LoginCancelled
+
                 
             except InvalidCredentialsError as err:
+                clear_console()
                 print_error(str(err))
                 continue
 
@@ -281,13 +311,13 @@ The user needs to be logged in before viewing the list."""
         try:
             # Stop if either the database doesn't exist or is empty.
             if self.db_manager.is_database_empty_or_nonexistent():
-                print("There is nothing there.")
+                print("The list is currently empty.")
                 return
 
 
             # Stop if the user isn't logged in.
             if not self.is_logged_in():
-                raise InvalidCredentialsError("You must log yourself in before viewing the list of users.")
+                raise InvalidCredentialsError("Please log in or sign up for an account before continuing.")
 
             
             # Display a list of users without their passwords.
@@ -301,14 +331,16 @@ The user needs to be logged in before viewing the list."""
                     username: str = account.split(",")[0].strip()
 
                     # Now add the username to the list
-                    list_of_users += f"{index}: {username}\n"
+                    list_of_users += f"#{index}: {username}\n"
                 except Exception as err: # Skip if an error had occurred
                     continue
 
                 index += 1
 
 
-            print(f"""List of users
+            print(f"""List of user accounts
+
+--------------------------------
 
 {list_of_users}""")
 
