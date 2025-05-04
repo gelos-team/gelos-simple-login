@@ -1,5 +1,11 @@
 # Gelos Simple Login
 
+## Table of contents
+- [About](https://github.com/gelos-team/gelos-simple-login#about)
+- [Usage](https://github.com/gelos-team/gelos-simple-login?tab=readme-ov-file#usage)
+
+    - [Logging in](https://github.com/gelos-team/gelos-simple-login?tab=readme-ov-file#logging-in)
+
 ## About
 
 A system for managing accounts registered under Gelos Enterprises.
