@@ -12,7 +12,7 @@ import sys
 
 
 # The location pointing to the database.
-database_path: Path = Path("test_data/accounts.txt")
+database_path: Path = Path("data/accounts.txt")
 
 
 class App:
@@ -54,5 +54,5 @@ class App:
 
 
 if __name__ == "__main__":
-    app: App = App(database_path, True)
+    app: App = App(database_path)
     app.run()
