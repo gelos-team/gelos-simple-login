@@ -19,6 +19,8 @@ It allows you to log into your Gelos account, create accounts as well as view a 
 
 Heres how to log in to your account registered under Gelos.
 
+![login_process](https://github.com/user-attachments/assets/3f4ddcfd-a5e9-4735-be58-db12cfcecfce)
+
 
 1. Press '1' while at the main menu then press ENTER/RETURN.
 2. Now enter the username associated with your Gelos account into the box shown.
@@ -28,6 +30,9 @@ Heres how to log in to your account registered under Gelos.
 ### Create account
 
 Heres how to create an account under Gelos.
+
+![account_registration](https://github.com/user-attachments/assets/d435b361-b93a-4d72-9d33-4b41302a9f00)
+
 
 1. While at the main menu, press '2' to create an account.
 2. Once prompted, enter a unique username which will be associated with your account and press enter.
