@@ -41,3 +41,13 @@ Heres how to create an account under Gelos.
 
     Please note that the password needs to be 8 characters minimum and must contain lower/uppercase letters, numbers and symbols.
 4. Enter a password for the second time then press enter.
+
+
+### View list of users
+
+Heres how to view a list of users.
+
+DISCLAIMER: You need to be logged in before following this tutorial.
+
+1. While logged in and at the main menu, press '3' then the enter key, then the list of users should appear.
+2. Once you are finished, press enter to return to the main menu.
