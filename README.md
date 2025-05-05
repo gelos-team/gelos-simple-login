@@ -5,6 +5,7 @@
 - [Usage](https://github.com/gelos-team/gelos-simple-login?tab=readme-ov-file#usage)
 
     - [Logging in](https://github.com/gelos-team/gelos-simple-login?tab=readme-ov-file#logging-in)
+    - [Create account](https://github.com/gelos-team/gelos-simple-login/blob/development/README.md#create-account)
 
 ## About
 
