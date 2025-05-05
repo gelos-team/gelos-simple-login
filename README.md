@@ -19,8 +19,19 @@ It allows you to log into your Gelos account, create accounts as well as view a 
 
 Heres how to log in to your account registered under Gelos.
 
-![login_process](https://github.com/user-attachments/assets/82f78223-54e8-471d-b847-0a0935fb463a)
 
 1. Press '1' while at the main menu then press ENTER/RETURN.
 2. Now enter the username associated with your Gelos account into the box shown.
 3. Now enter the password associated with the account. (The password will be hidden, don't worry, this is normal.)
+
+
+### Create account
+
+Heres how to create an account under Gelos.
+
+1. While at the main menu, press '2' to create an account.
+2. Once prompted, enter a unique username which will be associated with your account and press enter.
+3. Now enter a password for your account. 
+
+    Please note that the password needs to be 8 characters minimum and must contain lower/uppercase letters, numbers and symbols.
+4. Enter a password for the second time then press enter.
