@@ -1,12 +1,12 @@
 # Gelos Simple Login
 
 ## Table of contents
-- [About](https://github.com/gelos-team/gelos-simple-login#about)
-- [Usage](https://github.com/gelos-team/gelos-simple-login?tab=readme-ov-file#usage)
+- [About](#about)
+- [Usage](#usage)
 
-    - [Logging in](https://github.com/gelos-team/gelos-simple-login?tab=readme-ov-file#logging-in)
-    - [Create account](https://github.com/gelos-team/gelos-simple-login/blob/development/README.md#create-account)
-    - [View list of users](https://github.com/gelos-team/gelos-simple-login/blob/development/README.md#create-account)
+    - [Logging in](#logging-in)
+    - [Create account](#create-account)
+    - [View list of users](#create-account)
 
 ## About
 
