@@ -50,5 +50,8 @@ Heres how to view a list of users.
 
 DISCLAIMER: You need to be logged in before following this tutorial.
 
+![view_list](https://github.com/user-attachments/assets/edf96104-587a-47d6-9aba-4a5b577a0687)
+
+
 1. While logged in and at the main menu, press '3' then the enter key, then the list of users should appear.
 2. Once you are finished, press enter to return to the main menu.
