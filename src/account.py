@@ -368,14 +368,3 @@ Total users = {len(list_of_users)}""")
         
 
         input("Press enter to continue")
-
-                
-
-
-
-
-
-
-                        
-
-                
