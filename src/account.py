@@ -216,7 +216,7 @@ defined in the Microsoft Password Complexity Standards.
         while running:
             try:
                 # Exit if the database doesn't exist
-                if not self.db_manager.path.exists:
+                if not self.db_manager.path.exists():
                     raise LoginError("The database couldn't be found inside the system.")
                 
 
@@ -294,12 +294,7 @@ defined in the Microsoft Password Complexity Standards.
 
 
             except Exception as err:
-                if self.break_upon_error: # Print an error message if specified.
-                    raise
-                
-                # Otherwise, stop the login process
-                print_error("Something went wrong: " + str(err))
-                return
+                raise
 
 
     # View list of accounts without their passwords.
@@ -310,8 +305,7 @@ The user needs to be logged in before viewing the list."""
         try:
             # Stop if either the database doesn't exist or is empty.
             if self.db_manager.is_database_empty_or_nonexistent():
-                print("The list is currently empty.")
-                return
+                raise InvalidCredentialsError("The list is currently empty.")
 
 
             # Stop if the user isn't logged in.
@@ -348,23 +342,17 @@ The user needs to be logged in before viewing the list."""
 
 {list_output}
 Total users = {len(list_of_users)}""")
-
-        except InvalidCredentialsError as err:
-            print_error(str(err))
-            return
         
+        except InvalidCredentialsError:
+            raise
+
 
         except KeyboardInterrupt:
             pass
         
 
         except Exception as err:
-            if self.break_upon_error: # Print an error message if specified.
-                raise type(err)(str(err))
-            
-            # Otherwise, stop the login process
-            sys.stderr.write("Something went wrong: " + str(err))
-            return
+            raise
         
 
         input("Press enter to continue")

@@ -91,38 +91,6 @@ class UserInterface:
         self.quit_command = quit_command
 
 
-        # The list of predefined options
-        self.predefined_options: list[dict] = [
-            {
-                "label": "Log in to your account",
-                "id": "login",
-                "requires_login": False,
-                "requires_valid_database": True,
-                "alias": "1",
-                "visible": True,
-                "command": self.account_manager.login
-            },
-            {
-                "label": "Create an account",
-                "id": "register",
-                "requires_login": False,
-                "requires_valid_database": False,
-                "alias": "2",
-                "visible": True,
-                "command": self.account_manager.register_account
-            },
-            {
-                "label": "View list of users",
-                "id": "view_list",
-                "requires_login": True,
-                "requires_valid_database": False,
-                "alias": "3",
-                "visible": True,
-                "command": self.account_manager.view_list
-            }
-        ]
-
-
     # Check if a menu option already exists.
     def menu_option_exists(self, id: str) -> bool:
         """Checks if the menu option exists by reading the list and finding one based on it's ID.
@@ -212,26 +180,10 @@ Sometimes, certain options are visible if logged in."""
             The options include the option to log in, create accounts and view a list of users (when logged in).
         """
 
-
-        for option in self.predefined_options:
-            if type(option) is not dict: # Skip if an invalid option is detected
-                continue
-
-
-            # Add the option to the list
-            if (option["requires_login"] and not self.account_manager.is_logged_in()): # Skip if not logged in unless said otherwise.
-                self.remove_menu_option(option["id"])
-            elif (option["requires_valid_database"] and self.account_manager.db_manager.is_database_empty_or_nonexistent()):
-                self.remove_menu_option(option["id"])
-            else:
-                self.add_menu_option(option["label"], option["id"], option["alias"], \
-                                     option["command"], self.predefined_options.index(option) + 1, \
-                                        option["visible"])
-
-
-            # Always add an option to quit.
-            self.remove_menu_option("quit")
-            self.add_menu_option("Quit", "quit", "Q", self.quit_command, len(self.menu_options))
+        self.add_menu_option("Login", "login", "1", self.account_manager.login, 1)
+        self.add_menu_option("Register", "register", "2", self.account_manager.register_account, 2)
+        self.add_menu_option("View list of accounts", "list", "3", self.account_manager.view_list, 3)
+        self.add_menu_option("Quit", "quit", "q", self.quit_command, 4)
             
 
     # Output the heading of the program.
