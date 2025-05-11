@@ -97,6 +97,7 @@ class UserInterface:
                 "label": "Log in to your account",
                 "id": "login",
                 "requires_login": False,
+                "requires_valid_database": True,
                 "alias": "1",
                 "visible": True,
                 "command": self.account_manager.login
@@ -105,6 +106,7 @@ class UserInterface:
                 "label": "Create an account",
                 "id": "register",
                 "requires_login": False,
+                "requires_valid_database": False,
                 "alias": "2",
                 "visible": True,
                 "command": self.account_manager.register_account
@@ -113,6 +115,7 @@ class UserInterface:
                 "label": "View list of users",
                 "id": "view_list",
                 "requires_login": True,
+                "requires_valid_database": False,
                 "alias": "3",
                 "visible": True,
                 "command": self.account_manager.view_list
@@ -216,7 +219,9 @@ Sometimes, certain options are visible if logged in."""
 
 
             # Add the option to the list
-            if option["requires_login"] and not self.account_manager.is_logged_in(): # Skip if not logged in unless said otherwise.
+            if (option["requires_login"] and not self.account_manager.is_logged_in()): # Skip if not logged in unless said otherwise.
+                self.remove_menu_option(option["id"])
+            elif (option["requires_valid_database"] and self.account_manager.db_manager.is_database_empty_or_nonexistent()):
                 self.remove_menu_option(option["id"])
             else:
                 self.add_menu_option(option["label"], option["id"], option["alias"], \
