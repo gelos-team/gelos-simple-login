@@ -320,9 +320,12 @@ The user needs to be logged in before viewing the list."""
             if not self.is_logged_in():
                 raise InvalidCredentialsError("Please log in or sign up for an account before continuing.")
 
+
+            list_of_users: list = self.db_manager.read().split("\n")
+
             
             # Display a list of users without their passwords.
-            list_of_users: str = ""
+            list_output: str = ""
             index: int = 1 # The list index
 
 
@@ -332,7 +335,7 @@ The user needs to be logged in before viewing the list."""
                     username: str = account.split(",")[0].strip()
 
                     # Now add the username to the list
-                    list_of_users += f"#{index}: {username}{"\n" if self.db_manager.read().index(account) <= len(self.db_manager.read()) - 1 else ""}"
+                    list_output += f"#{index}: {username}{"\n" if self.db_manager.read().index(account) <= len(self.db_manager.read()) - 1 else ""}"
 
                 
                 except Exception as err: # Skip if an error had occurred
@@ -345,7 +348,8 @@ The user needs to be logged in before viewing the list."""
 
 --------------------------------
 
-{list_of_users}""")
+{list_output}
+Total users = {len(list_of_users)}""")
 
         except InvalidCredentialsError as err:
             print_error(str(err))
