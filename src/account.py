@@ -42,10 +42,8 @@ def print_error(msg: object) -> None:
 
 # Clear the console window
 def clear_console() -> None:
-    try:
-        os.system("cls" if sys.platform == "win32" else "clear")
-    except:
-        print("\033[2J\033[H")
+    os.system("cls" if sys.platform == "win32" else "clear")
+    print("\033[2J\033[H")
 
 
 class AccountManager:
