@@ -11,6 +11,13 @@
             "request": "launch",
             "program": "${cwd}/src/main.py",
             "console": "integratedTerminal"
+        },
+        {
+            "name": "Python Debugger: Main Program (External Shell)",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${cwd}/src/main.py",
+            "console": "externalTerminal"
         }
     ]
 }
